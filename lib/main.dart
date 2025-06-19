@@ -20,10 +20,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [ChangeNotifierProvider(create: (_) => BookmarkProvider())],
-      child: MaterialApp(
-        theme: MyTheme.mytheme,
-        home: HomePage()),
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => BookmarkProvider()
+            ..retriveAllPlatforms()
+            ..retriveAllFolders(),
+        ),
+      ],
+      child: MaterialApp(theme: MyTheme.mytheme, home: HomePage()),
     );
   }
 }

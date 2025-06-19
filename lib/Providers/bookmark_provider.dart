@@ -1,58 +1,116 @@
-import 'dart:developer';
 
+import 'package:bookmark/models/folder_model.dart';
 import 'package:bookmark/models/platform_model.dart';
 import 'package:bookmark/models/url_model.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class BookmarkProvider extends ChangeNotifier {
-  final List<UrlModel> _myAllUrls = [];
-
-
-  final List<PlatformModel> _myAllPlatform=[];
-
-  final List<String> jsonList = [];
-
   final Box _myBox = Hive.box('bookmark');
 
-  List<UrlModel> get allUrls => _myAllUrls;
+  final List<String> _allPlatformTitles = [
+    'Instagram',
+    'Youtube',
+    'Twitter',
+    'Random',
+  ];
 
-  void storeInLocal() {
-    _myBox.clear();
-    jsonList.clear();
-    for (UrlModel url in _myAllUrls) {
-      jsonList.add(url.toJson());
-    }
+  final List<PlatformModel> _allPlatforms = [];
 
-    _myBox.put('urls', jsonList);
+  final List<FolderModel> _allFolders = [];
+
+  final List<UrlModel> _allUrls = [];
+
+  List<String> get allPlatformsTitles => _allPlatformTitles;
+  List<PlatformModel> get allPlatforms => _allPlatforms;
+  List<FolderModel> get allFolders => _allFolders;
+
+
+  void saveFoldersInLocalStorage(){
+    _myBox.delete('folders');
+    List<String> jsonList = _allFolders.map((item)=>item.toJson()).toList();
+    _myBox.put('folders', jsonList);
   }
 
-  void retriveDataFromLocal() {
-    _myAllUrls.clear();
-    jsonList.clear();
-    jsonList.addAll(_myBox.get('urls') as List<String>);
+
+  void retriveAllFolders(){
+     List<String?>? foldersString = _myBox.get('folders');
+    _allFolders.clear();
+    if(foldersString != null){
+
+    _allFolders.addAll(
+      foldersString.map((item) => FolderModel.fromJson(item!)),
+    );
+    notifyListeners();
+    }
+  }
+
+
+  List<UrlModel> getSpecificUrl(String? folderName,String platformName){
+    if(folderName == null){
+      return _allUrls.where((item)=>item.platform == platformName).toList();
+    }
+    return _allUrls.where((item)=> (item.folderName == folderName)&&(item.platform == platformName)).toList();
+  }
+
+
+  void deleteFolder(FolderModel folderModel){
+    _allFolders.remove(folderModel);
+    saveFoldersInLocalStorage();
+    notifyListeners();
+  }
+
   
-    for (String url in jsonList) {
-      UrlModel urlModel = UrlModel.fromJson(url);
-      _myAllUrls.add(urlModel);
-    }
+  List<FolderModel> getSpecificFolder({required String platformName}) {
+    return _allFolders
+        .where((item) => item.platformName == platformName)
+        .toList();
   }
 
-  void addUrl({required String url, required String platform, String? note}) {
-    UrlModel urlModel = UrlModel(url: url, platform: platform, note: note);
-    _myAllUrls.add(urlModel);
-    storeInLocal();
+
+
+
+  void retriveAllPlatforms() {
+    List<String> platformString = _myBox.get('platforms');
+    _allPlatforms.clear();
+
+    _allPlatforms.addAll(
+      platformString.map((item) => PlatformModel.fromJson(item)),
+    );
     notifyListeners();
   }
 
-
-  void removeUrl(UrlModel url){
-    _myAllUrls.remove(url);
-    storeInLocal();
+  void saveFolder({required String name,required String platformName}){
+    FolderModel folderModel  = FolderModel(name: name, platformName: platformName);
+    _allFolders.add(folderModel);
+    saveFoldersInLocalStorage();
     notifyListeners();
   }
 
-  List<UrlModel> getPlatformSpecificUrls(String platform) {
-    return _myAllUrls.where((url) => url.platform == platform).toList();
+  void saveAllPlatformData() {
+    List<PlatformModel> platform = [
+      PlatformModel(
+        title: 'Instagram',
+        description: 'View all your saved instagram post',
+      ),
+      PlatformModel(
+        title: 'Youtube',
+        description: 'View all your saved youtube shorts',
+      ),
+      PlatformModel(
+        title: 'Twitter',
+        description: 'View all your book marked twitter post',
+      ),
+      PlatformModel(
+        title: 'Random',
+        description: 'View post from random platform',
+      ),
+    ];
+
+    List<String> platformString = platform
+        .map((item) => item.toJson())
+        .toList();
+
+    _myBox.put('platforms', platformString);
   }
 }

@@ -1,24 +1,26 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class PlatformModel {
   String title;
-  List<Map<String,dynamic>> folders;
 
-  PlatformModel({required this.title,required this.folders});
-  
-
+  String description;
+  PlatformModel({
+    required this.title,
+    required this.description,
+  });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'title': title,
-      'folders': folders,
+      'description': description,
     };
   }
 
   factory PlatformModel.fromMap(Map<String, dynamic> map) {
     return PlatformModel(
       title: map['title'] as String,
-      folders: map['folders'] as List<Map<String,dynamic>>
+      description: map['description'] as String,
     );
   }
 

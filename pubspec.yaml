@@ -50,6 +50,7 @@ dependencies:
   hive: ^2.2.3
   any_link_preview: ^3.0.3
   flutter_slidable: ^4.0.0
+  dotted_border: ^3.0.1
 
 dev_dependencies:
   flutter_test:

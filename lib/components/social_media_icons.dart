@@ -50,8 +50,8 @@ class SocialMediaIcons extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(platformName, style: GoogleFonts.amarante(fontSize: 20)),
-                  Text(description,style: GoogleFonts.roboto(),),
+                  Text(platformName, style: GoogleFonts.caveat(fontSize: 28,fontWeight: FontWeight.bold)),
+                  Text(description,style: GoogleFonts.caveat(fontWeight: FontWeight.bold,fontSize: 16),),
                 ],
               ),
             ),

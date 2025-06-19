@@ -25,7 +25,7 @@ class Core {
               ),
               onPressed: (){
                 Navigator.pop(context);
-                Provider.of<BookmarkProvider>(context,listen: false).removeUrl(url);
+                // Provider.of<BookmarkProvider>(context,listen: false).removeUrl(url);
                 
               }, child: Text('Delete')),
             TextButton(onPressed: (){
