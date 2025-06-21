@@ -1,17 +1,37 @@
 import 'package:bookmark/models/folder_model.dart';
+import 'package:bookmark/pages/view_url.dart';
 import 'package:bookmark/widgets/show_bottom_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
-class RemainingFolder extends StatelessWidget {
+class RemainingFolderTile extends StatelessWidget {
   final String folderName;
   final FolderModel folderModel;
-  const RemainingFolder({super.key,required this.folderName ,required this.folderModel});
+  final String platformName;
+  
+  const RemainingFolderTile({
+    super.key,
+    required this.folderName,
+    required this.folderModel,
+    required this.platformName,
+    
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+      
+          Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: ViewUrl(platform: platformName,folder: folderName,),
+          ),
+        );
+        
+      },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         margin: EdgeInsets.only(bottom: 20),
@@ -34,10 +54,14 @@ class RemainingFolder extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-              GestureDetector(onTap: (){
-                showDeleteBottomModal(context,folderModel);
-              },child:Icon(Icons.more_vert_rounded))
-            ],),
+                GestureDetector(
+                  onTap: () {
+                    showDeleteBottomModal(context, folderModel);
+                  },
+                  child: Icon(Icons.more_vert_rounded),
+                ),
+              ],
+            ),
             Column(
               spacing: 10,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -45,9 +69,9 @@ class RemainingFolder extends StatelessWidget {
                 Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
                 Text(
                   folderName,
-                  style: GoogleFonts.caveat(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
+                  style: GoogleFonts.roboto(
+                    // fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 ),
               ],

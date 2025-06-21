@@ -4,9 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
+
 class Core {
   String getPlatformName(String url) {
-    return url.contains('x.com') ? "twitter" : "instagram";
+   if(url.contains('x.com')){
+    return 'twitter';
+   }
+   else if(url.contains('instagram.com')){
+    return 'instagram';
+   }
+   else if(url.contains('youtube.com')){
+    return 'youtube';
+   }
+   else{
+    return 'random';
+   }
   }
 
   void showAlert(BuildContext context,UrlModel url) {
@@ -25,7 +37,7 @@ class Core {
               ),
               onPressed: (){
                 Navigator.pop(context);
-                // Provider.of<BookmarkProvider>(context,listen: false).removeUrl(url);
+                Provider.of<BookmarkProvider>(context,listen: false).deleteUrl(url);
                 
               }, child: Text('Delete')),
             TextButton(onPressed: (){

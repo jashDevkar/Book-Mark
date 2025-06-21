@@ -1,13 +1,24 @@
+import 'package:bookmark/pages/view_url.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 class AllSaveFolder extends StatelessWidget {
-  const AllSaveFolder({super.key});
+  final String platformName;
+  const AllSaveFolder({super.key, required this.platformName});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: ViewUrl(platform: platformName),
+          ),
+        );
+      },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         margin: EdgeInsets.only(bottom: 20),
@@ -32,9 +43,9 @@ class AllSaveFolder extends StatelessWidget {
             Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
             Text(
               'All Saved',
-              style: GoogleFonts.caveat(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
+              style: GoogleFonts.roboto(
+                
+                fontSize: 20,
               ),
             ),
           ],

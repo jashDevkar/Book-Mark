@@ -62,31 +62,58 @@ void showDeleteBottomModal(BuildContext context, FolderModel folder) {
     builder: (context) {
       return Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: 50),
+        padding: EdgeInsets.all(50),
         child: TextButton(
+          style: TextButton.styleFrom(
+            elevation: 4.0,
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusGeometry.circular(10),
+            ),
+          ),
           onPressed: () {
             Navigator.pop(context);
             showDialog(
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  icon:Icon(Icons.error_outline_rounded),
+                  icon: Icon(Icons.error_outline_rounded),
                   title: Text('Delete folder?'),
-                  content: Text('Once folder deleted, all saved post will also be deleted'),
+                  content: Text(
+                    'Once folder deleted, all saved post related to this folder will also be deleted',
+                  ),
                   actions: [
-                    TextButton(onPressed: () {
-                      Provider.of<BookmarkProvider>(context,listen: false).deleteFolder(folder);
-                      Navigator.pop(context);
-                    }, child: Text('Delete')),
-                    TextButton(onPressed: () {
-                      Navigator.pop(context);
-                    }, child: Text('Cancel')),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        elevation: 4.0,
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(10),
+                        ),
+                      ),
+                      onPressed: () {
+                        Provider.of<BookmarkProvider>(
+                          context,
+                          listen: false,
+                        ).deleteFolder(folder);
+                        Navigator.pop(context);
+                      },
+                      child: Text('Delete'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('Cancel'),
+                    ),
                   ],
                 );
               },
             );
           },
-          child: Text('Delete folder ${folder.name}'),
+          child: Text('Delete folder'),
         ),
       );
     },

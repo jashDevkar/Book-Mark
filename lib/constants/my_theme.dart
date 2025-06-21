@@ -3,7 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MyTheme {
   static final mytheme = ThemeData.light(useMaterial3: true).copyWith(
-    textTheme: GoogleFonts.caveatTextTheme(),
+    textTheme: GoogleFonts.robotoTextTheme(
+      
+    ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor:Color(0xff0E1C36),
       foregroundColor: Color(0xfffaf7ff) ,

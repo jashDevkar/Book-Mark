@@ -1,7 +1,7 @@
 import 'package:bookmark/Providers/bookmark_provider.dart';
 
 import 'package:bookmark/components/all_save_folder.dart';
-import 'package:bookmark/components/remaining_folder.dart';
+import 'package:bookmark/components/remaining_folder_tile.dart';
 import 'package:bookmark/widgets/show_bottom_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,8 +28,6 @@ class _ViewAllFoldersState extends State<ViewAllFolders> {
     super.dispose();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,13 +39,14 @@ class _ViewAllFoldersState extends State<ViewAllFolders> {
               showBottomModal(context, _folderName, widget.platformName);
             },
             child: Text(
-                          'Add folder',
-                          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-                          ),
-                        )
+              'Add folder',
+              style: GoogleFonts.amarante(
+                color: Colors.white,
+                letterSpacing: 1.1,
+                fontSize: 16,
+                // fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
         ],
 
@@ -57,19 +56,20 @@ class _ViewAllFoldersState extends State<ViewAllFolders> {
           children: [
             Text(
               'Folders',
-              style: GoogleFonts.caveat(
-                fontWeight: FontWeight.bold,
-                fontSize: 28,
-                letterSpacing: 1.5,
+              style: GoogleFonts.amarante(
+               
               ),
             ),
-             Image.asset('assets/images/${widget.platformName.toLowerCase()}.png',width: 28,color: Colors.white,)
+            Image.asset(
+              'assets/images/${widget.platformName.toLowerCase()}.png',
+              width: 24,
+              color: Colors.white,
+            ),
           ],
         ),
       ),
       body: Consumer<BookmarkProvider>(
         builder: (context, bookMark, child) {
-          
           return GridView(
             padding: EdgeInsets.only(top: 20, left: 10, right: 10),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -77,16 +77,16 @@ class _ViewAllFoldersState extends State<ViewAllFolders> {
               crossAxisCount: 2,
             ),
             children: [
-              AllSaveFolder(),
+              AllSaveFolder(platformName: widget.platformName),
               ...bookMark
                   .getSpecificFolder(platformName: widget.platformName)
                   .map(
-                    (folder) => RemainingFolder(
+                    (folder) => RemainingFolderTile(
+                      platformName: widget.platformName,
                       folderName: folder.name,
                       folderModel: folder,
                     ),
                   ),
-                  
             ],
           );
         },

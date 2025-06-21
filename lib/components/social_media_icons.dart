@@ -1,5 +1,7 @@
+import 'package:bookmark/Providers/bookmark_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class SocialMediaIcons extends StatelessWidget {
   final void Function() onTap;
@@ -18,7 +20,7 @@ class SocialMediaIcons extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10,horizontal: 8),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         margin: EdgeInsets.only(bottom: 20),
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
@@ -29,7 +31,7 @@ class SocialMediaIcons extends StatelessWidget {
               color: Colors.grey,
               blurRadius: 2.0,
               spreadRadius: 0.0,
-              offset: Offset(4.5, 4.0), 
+              offset: Offset(4.5, 4.0),
             ),
           ],
           border: Border.all(color: Color(0xff0E1C36), width: 2),
@@ -50,8 +52,46 @@ class SocialMediaIcons extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(platformName, style: GoogleFonts.caveat(fontSize: 28,fontWeight: FontWeight.bold)),
-                  Text(description,style: GoogleFonts.caveat(fontWeight: FontWeight.bold,fontSize: 16),),
+
+                  // === platform name ===
+                  Text(
+                    platformName,
+                    style: GoogleFonts.roboto(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+
+                  // === description
+                  Text(
+                    description,
+                    style: GoogleFonts.roboto(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4.0),
+                    child: Row(
+                      
+                      spacing: 10,
+                      children: [
+                        Text(
+                          '${Provider.of<BookmarkProvider>(context).getPlatformFolderCount(platformName: platformName.toLowerCase())} Folders',
+                          style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.w400,fontSize: 12
+                          ),
+                        ),
+                        Text(
+                          '${Provider.of<BookmarkProvider>(context).getUrlPlatformUrlCount(platformName: platformName.toLowerCase())} Urls',
+                           style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.w400,fontSize: 12
+                          ),
+                    
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

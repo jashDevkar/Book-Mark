@@ -23,8 +23,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => BookmarkProvider()
-            ..retriveAllPlatforms()
-            ..retriveAllFolders(),
+            ..retriveAllFolders()
+            ..retriveUrls()
+            ,
+            
         ),
       ],
       child: MaterialApp(theme: MyTheme.mytheme, home: HomePage()),

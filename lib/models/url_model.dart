@@ -15,6 +15,28 @@ class UrlModel {
   
 
 
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'url': url,
+      'platform': platform,
+      'note': note,
+      'folderName': folderName,
+    };
+  }
+
+  factory UrlModel.fromMap(Map<String, dynamic> map) {
+    return UrlModel(
+      url: map['url'] as String,
+      platform: map['platform'] as String,
+      note: map['note'] != null ? map['note'] as String : null,
+      folderName: map['folderName'] != null ? map['folderName'] as String : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory UrlModel.fromJson(String source) => UrlModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
 
