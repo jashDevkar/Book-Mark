@@ -16,7 +16,11 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController controller;
+  late List<Animation<Offset>> animations;
+
   final _sharedFile = <SharedMediaFile>[];
 
   @override
@@ -46,6 +50,20 @@ class _HomePageState extends State<HomePage> {
         }
       }
     });
+
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    );
+
+    animations = List.generate(4, (index) {
+      return Tween<Offset>(begin: Offset(-2, 0), end: Offset.zero).animate(
+        CurvedAnimation(parent: controller, curve: Interval(index * 0.25, 1)),
+      );
+    });
+
+
+    controller.forward();
   }
 
   @override
@@ -55,12 +73,7 @@ class _HomePageState extends State<HomePage> {
         title: Row(
           spacing: 8,
           children: [
-            Text(
-              'Book-Mark',
-              style: GoogleFonts.amarante(
-            
-              ),
-            ),
+            Text('Book-Mark', style: GoogleFonts.amarante()),
             Icon(Icons.bookmark_add_outlined),
           ],
         ),
@@ -71,23 +84,27 @@ class _HomePageState extends State<HomePage> {
           itemCount: Provider.of<BookmarkProvider>(
             context,
           ).allPlatformList.length,
+
           itemBuilder: (context, index) {
             final item = Provider.of<BookmarkProvider>(
               context,
             ).allPlatformList[index];
-            return SocialMediaIcons(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.rightToLeft,
-                    child: ViewAllFolders(platformName: item.title),
-                  ),
-                );
-              },
-              platformName:
-                  item.title[0].toUpperCase() + item.title.substring(1),
-              description: item.description,
+            return SlideTransition(
+              position: animations[index],
+              child: SocialMediaIcons(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.rightToLeft,
+                      child: ViewAllFolders(platformName: item.title),
+                    ),
+                  );
+                },
+                platformName:
+                    item.title[0].toUpperCase() + item.title.substring(1),
+                description: item.description,
+              ),
             );
           },
         ),

@@ -32,7 +32,7 @@ class _ViewUrlState extends State<ViewUrl> {
           spacing: 10,
           children: [
             Text(
-              'Saved',
+              widget.folder?? "All saved",
               style: GoogleFonts.amarante(
                 fontWeight: FontWeight.w500,
                 fontSize: 26,

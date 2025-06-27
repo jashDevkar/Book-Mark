@@ -3,6 +3,7 @@ import 'package:bookmark/Preview/custompreview_builder.dart';
 
 import 'package:bookmark/Providers/bookmark_provider.dart';
 import 'package:bookmark/constants/core.dart';
+import 'package:bookmark/models/url_model.dart';
 import 'package:bookmark/pages/select_folder.dart';
 
 import 'package:flutter/material.dart';
@@ -15,7 +16,8 @@ import 'package:provider/provider.dart';
 class AddBookmark extends StatefulWidget {
   final String? url;
   final String? platform;
-  const AddBookmark({super.key, this.url, this.platform});
+  final UrlModel? urlModel;
+  const AddBookmark({super.key, this.url, this.platform, this.urlModel});
 
   @override
   State<AddBookmark> createState() => _AddBookmarkState();
@@ -43,6 +45,12 @@ class _AddBookmarkState extends State<AddBookmark> {
       _urlController.text = widget.url!;
       platform = platform ?? Core().getPlatformName(widget.url!);
     }
+    if (widget.urlModel != null) {
+      platform = widget.urlModel!.platform;
+      _urlController.text = widget.urlModel!.url;
+      _noteController.text = widget.urlModel!.note ?? "";
+      finalFolderName = widget.urlModel!.folderName ?? "All saved";
+    }
   }
 
   void toggleShowPreview() {
@@ -59,12 +67,7 @@ class _AddBookmarkState extends State<AddBookmark> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff0E1C36),
-        title: Text(
-          'Add Book-Mark',
-          style: GoogleFonts.amarante(
-            
-          ),
-        ),
+        title: Text('Add Book-Mark', style: GoogleFonts.amarante()),
         foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
@@ -140,7 +143,7 @@ class _AddBookmarkState extends State<AddBookmark> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   GestureDetector(
-                    onTap: () async{
+                    onTap: () async {
                       folderName = await Navigator.push(
                         context,
                         PageTransition(
@@ -148,11 +151,10 @@ class _AddBookmarkState extends State<AddBookmark> {
                           child: SelectFolder(platformName: platform!),
                         ),
                       );
-                      
-                        setState(() {
-                          finalFolderName = folderName;
-                        });
-                      
+
+                      setState(() {
+                        finalFolderName = folderName;
+                      });
                     },
                     child: Container(
                       padding: EdgeInsets.all(8.0),
@@ -163,11 +165,9 @@ class _AddBookmarkState extends State<AddBookmark> {
                       child: Row(
                         spacing: 10,
                         children: [
-                          if(finalFolderName == null)
-                            Text('Select folder'),
+                          if (finalFolderName == null) Text('Select folder'),
                           Text(finalFolderName ?? ''),
-                          if(finalFolderName != null)
-                            Icon(Icons.add)
+                          if (finalFolderName != null) Icon(Icons.add),
                         ],
                       ),
                     ),
@@ -196,6 +196,21 @@ class _AddBookmarkState extends State<AddBookmark> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Enter a valid url')),
                     );
+                  } else if (widget.urlModel != null &&
+                      _urlController.text.isNotEmpty) {
+                    widget.urlModel!.url = _urlController.text;
+
+                    widget.urlModel!.folderName = finalFolderName;
+                    widget.urlModel!.note = _noteController.text;
+
+                    Provider.of<BookmarkProvider>(
+                      context,
+                      listen: false,
+                    ).editUrl();
+
+                    _urlController.clear();
+                    _noteController.clear();
+                    Navigator.pop(context);
                   } else {
                     Provider.of<BookmarkProvider>(
                       context,
@@ -206,9 +221,8 @@ class _AddBookmarkState extends State<AddBookmark> {
                           platform ??
                           Core().getPlatformName(_urlController.text),
                       note: _noteController.text,
-                      folder: finalFolderName
+                      folder: finalFolderName,
                     );
-
                     _urlController.clear();
                     _noteController.clear();
                     Navigator.pop(context);

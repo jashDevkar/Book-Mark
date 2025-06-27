@@ -80,9 +80,9 @@ class SelectFolderTile extends StatelessWidget {
                         Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
                         Text(
                           folderName,
-                          style: GoogleFonts.caveat(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
+                          style: GoogleFonts.roboto(
+                           
+                            fontSize: 20
                           ),
                         ),
                       ],

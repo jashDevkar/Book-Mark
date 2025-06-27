@@ -98,6 +98,11 @@ class BookmarkProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void editUrl(){
+    _saveUrlToLocalStorage();
+    notifyListeners();
+  }
+
 
   void retriveUrls(){
     final List<String>? urls = _myBox.get('urls');

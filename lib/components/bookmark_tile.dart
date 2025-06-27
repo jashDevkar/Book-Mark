@@ -1,9 +1,11 @@
 import 'package:bookmark/Preview/custompreview_builder.dart';
 import 'package:bookmark/constants/core.dart';
 import 'package:bookmark/models/url_model.dart';
+import 'package:bookmark/pages/add_book_mark.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 class BookmarkTile extends StatelessWidget {
   final UrlModel item;
@@ -17,7 +19,12 @@ class BookmarkTile extends StatelessWidget {
         children: [
           SlidableAction(
             foregroundColor: Colors.blueAccent,
-            onPressed: (context) {},
+            onPressed: (context) {
+              Navigator.push(context, PageTransition(
+                type: PageTransitionType.rightToLeft,
+                child: AddBookmark(urlModel: item),
+              ));
+            },
             icon: Icons.edit,
           ),
         ],
@@ -27,7 +34,7 @@ class BookmarkTile extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) {
-              Core().showAlert(context,item);
+              Core().showAlert(context, item);
             },
             icon: Icons.delete,
             foregroundColor: Colors.red,
