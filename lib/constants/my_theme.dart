@@ -3,23 +3,29 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MyTheme {
   static final mytheme = ThemeData.light(useMaterial3: true).copyWith(
-    textTheme: GoogleFonts.robotoTextTheme(
+    textTheme: GoogleFonts.blinkerTextTheme(
       
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor:Color(0xff0E1C36),
+      backgroundColor:Colors.blue,
       foregroundColor: Color(0xfffaf7ff) ,
       shape: CircleBorder() 
     ),
     
     appBarTheme: AppBarTheme(
-      color: Color(0xff0E1C36),
-      foregroundColor: Color(0xfffaf7ff),
-      
+      color: Colors.blue.shade700,
+      foregroundColor: Colors.white,
+      titleTextStyle: GoogleFonts.roboto(
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
+        wordSpacing: 2.0,
+        letterSpacing: 1.5
+      )
       
       
     ),
-    scaffoldBackgroundColor: Color(0xfffaf7ff),
+    scaffoldBackgroundColor: Colors.white,
+  
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.black),

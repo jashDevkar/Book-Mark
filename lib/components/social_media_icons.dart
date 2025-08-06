@@ -25,72 +25,70 @@ class SocialMediaIcons extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10),
-          color: Color.fromARGB(255, 248, 246, 253),
+          color:  Colors.white,
           boxShadow: [
+           
             BoxShadow(
               color: Colors.grey,
               blurRadius: 2.0,
               spreadRadius: 0.0,
-              offset: Offset(4.5, 4.0),
+              offset: Offset(4.0, 4.0),
             ),
           ],
           border: Border.all(color: Color(0xff0E1C36), width: 2),
         ),
         child: Row(
-          spacing: 10,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          spacing: 14,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              child: Image.asset(
+              child: ClipRRect(
+                borderRadius: BorderRadiusGeometry.circular(20),
+                child: Image.asset(
+                height: 65,
                 'assets/images/${platformName.toLowerCase()}.png',
-                color: Color(0xff0E1C36),
-                height: 75,
-              ),
+                // color: Colors.blue.shade900,
+                
+                              ),
+              )
             ),
 
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
                 children: [
 
                   // === platform name ===
                   Text(
                     platformName,
-                    style: GoogleFonts.roboto(
-                      fontSize: 28,
+                    style:GoogleFonts.roboto(
+                      fontSize: 24,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
 
-                  // === description
-                  Text(
-                    description,
-                    style: GoogleFonts.roboto(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4.0),
-                    child: Row(
-                      
-                      spacing: 10,
-                      children: [
-                        Text(
-                          '${Provider.of<BookmarkProvider>(context).getPlatformFolderCount(platformName: platformName.toLowerCase())} Folders',
-                          style: GoogleFonts.roboto(
-                            fontWeight: FontWeight.w400,fontSize: 12
-                          ),
+                
+                  
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 10,
+                    children: [
+                      Text(
+                        '${Provider.of<BookmarkProvider>(context).getPlatformFolderCount(platformName: platformName.toLowerCase())} Folders',
+                        style: GoogleFonts.roboto(
+                          fontWeight: FontWeight.w400,fontSize: 12
                         ),
-                        Text(
-                          '${Provider.of<BookmarkProvider>(context).getUrlPlatformUrlCount(platformName: platformName.toLowerCase())} Urls',
-                           style: GoogleFonts.roboto(
-                            fontWeight: FontWeight.w400,fontSize: 12
-                          ),
-                    
+                      ),
+                      Text(
+                        '${Provider.of<BookmarkProvider>(context).getUrlPlatformUrlCount(platformName: platformName.toLowerCase())} Urls',
+                         style: GoogleFonts.roboto(
+                          fontWeight: FontWeight.w400,fontSize: 12
                         ),
-                      ],
-                    ),
+                  
+                      ),
+                    ],
                   ),
                 ],
               ),

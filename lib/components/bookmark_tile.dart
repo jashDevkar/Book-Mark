@@ -46,7 +46,7 @@ class BookmarkTile extends StatelessWidget {
         margin: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
         padding: EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 248, 246, 253),
+          color: Colors.white,
           border: Border.all(color: Color(0xff0E1C36)),
           borderRadius: BorderRadius.circular(10),
 

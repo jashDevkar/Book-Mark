@@ -1,5 +1,6 @@
 
 import 'package:bookmark/Providers/bookmark_provider.dart';
+import 'package:bookmark/colors.dart';
 
 import 'package:bookmark/components/select_folder_tile.dart';
 import 'package:bookmark/models/folder_model.dart';
@@ -50,11 +51,7 @@ class _SelectFolderState extends State<SelectFolder> {
             },
             child: Text(
               selectedIndex == -1 ? 'Add folder':'Select',
-              style: GoogleFonts.amarante(
-                color: Colors.white,
-                fontSize: 16,
-                // fontWeight: FontWeight.w600,
-              ),
+              
             ),
           ),
         ],
@@ -65,11 +62,8 @@ class _SelectFolderState extends State<SelectFolder> {
           children: [
             Text(
               'Folders',
-              style: GoogleFonts.amarante(
-                // fontWeight: FontWeight.bold,
-                // fontSize: 28,
-                // letterSpacing: 1.5,
-              ),
+              style: kAppBarStyle,
+              
             ),
             Image.asset(
               'assets/images/${widget.platformName.toLowerCase()}.png',

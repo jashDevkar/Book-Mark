@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bookmark/Providers/bookmark_provider.dart';
 import 'package:bookmark/components/social_media_icons.dart';
 import 'package:bookmark/constants/core.dart';
@@ -62,7 +64,6 @@ class _HomePageState extends State<HomePage>
       );
     });
 
-
     controller.forward();
   }
 
@@ -72,42 +73,53 @@ class _HomePageState extends State<HomePage>
       appBar: AppBar(
         title: Row(
           spacing: 8,
-          children: [
-            Text('Book-Mark', style: GoogleFonts.amarante()),
-            Icon(Icons.bookmark_add_outlined),
-          ],
+          children: [Text('Book-mark'), Icon(Icons.bookmark_add_outlined)],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 8.0, left: 10.0, right: 10.0),
-        child: ListView.builder(
-          itemCount: Provider.of<BookmarkProvider>(
-            context,
-          ).allPlatformList.length,
+      body: Stack(
+        children: [
+          ImageFiltered(
+            imageFilter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+            child: Image.asset(
+              'assets/images/bg.webp',
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.fitHeight,
+            ),
+          ),
 
-          itemBuilder: (context, index) {
-            final item = Provider.of<BookmarkProvider>(
-              context,
-            ).allPlatformList[index];
-            return SlideTransition(
-              position: animations[index],
-              child: SocialMediaIcons(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.rightToLeft,
-                      child: ViewAllFolders(platformName: item.title),
-                    ),
-                  );
-                },
-                platformName:
-                    item.title[0].toUpperCase() + item.title.substring(1),
-                description: item.description,
-              ),
-            );
-          },
-        ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 15.0, right: 15.0),
+            child: ListView.builder(
+              itemCount: Provider.of<BookmarkProvider>(
+                context,
+              ).allPlatformList.length,
+
+              itemBuilder: (context, index) {
+                final item = Provider.of<BookmarkProvider>(
+                  context,
+                ).allPlatformList[index];
+                return SlideTransition(
+                  position: animations[index],
+                  child: SocialMediaIcons(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          child: ViewAllFolders(platformName: item.title),
+                        ),
+                      );
+                    },
+                    platformName:
+                        item.title[0].toUpperCase() + item.title.substring(1),
+                    description: item.description,
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

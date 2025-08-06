@@ -1,4 +1,3 @@
-
 import 'package:bookmark/Preview/custompreview_builder.dart';
 
 import 'package:bookmark/Providers/bookmark_provider.dart';
@@ -36,7 +35,7 @@ class _AddBookmarkState extends State<AddBookmark> {
 
   bool showPreview = false;
 
-  String? platform;
+  String? platform ;
 
   @override
   void initState() {
@@ -66,8 +65,7 @@ class _AddBookmarkState extends State<AddBookmark> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff0E1C36),
-        title: Text('Add Book-Mark', style: GoogleFonts.amarante()),
+        title: Text('Add Book-Mark'),
         foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
@@ -78,7 +76,17 @@ class _AddBookmarkState extends State<AddBookmark> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/images/$platform.png', height: 70),
+              Align(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+
+                  child: Image.asset(
+                    'assets/images/$platform.png',
+                    height: 70,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
 
               //url field
               TextField(
@@ -189,7 +197,7 @@ class _AddBookmarkState extends State<AddBookmark> {
                     borderRadius: BorderRadiusGeometry.circular(10),
                   ),
                   foregroundColor: Colors.white,
-                  backgroundColor: Color(0xff0E1C36),
+                  backgroundColor: Colors.blue.shade700,
                 ),
                 onPressed: () {
                   if (_urlController.text.isEmpty) {

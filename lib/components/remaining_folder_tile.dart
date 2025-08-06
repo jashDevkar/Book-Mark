@@ -1,3 +1,4 @@
+import 'package:bookmark/colors.dart';
 import 'package:bookmark/models/folder_model.dart';
 import 'package:bookmark/pages/view_url.dart';
 import 'package:bookmark/widgets/show_bottom_modal.dart';
@@ -38,7 +39,7 @@ class RemainingFolderTile extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10),
-          color: Color.fromARGB(255, 248, 246, 253),
+          color: Colors.white,
           boxShadow: [
             BoxShadow(
               color: Colors.grey,
@@ -69,10 +70,7 @@ class RemainingFolderTile extends StatelessWidget {
                 Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
                 Text(
                   folderName,
-                  style: GoogleFonts.roboto(
-                    // fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
+                  style:kFoldersTextStyle
                 ),
               ],
             ),

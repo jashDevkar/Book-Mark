@@ -1,3 +1,4 @@
+import 'package:bookmark/colors.dart';
 import 'package:bookmark/pages/view_url.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,7 +26,7 @@ class AllSaveFolder extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10),
-          color: Color.fromARGB(255, 248, 246, 253),
+          color: Colors.white,
           boxShadow: [
             BoxShadow(
               color: Colors.grey,
@@ -43,10 +44,7 @@ class AllSaveFolder extends StatelessWidget {
             Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
             Text(
               'All Saved',
-              style: GoogleFonts.roboto(
-                
-                fontSize: 20,
-              ),
+              style: kFoldersTextStyle
             ),
           ],
         ),

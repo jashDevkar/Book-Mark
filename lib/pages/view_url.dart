@@ -1,4 +1,5 @@
 import 'package:bookmark/Providers/bookmark_provider.dart';
+import 'package:bookmark/colors.dart';
 import 'package:bookmark/components/bookmark_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -26,29 +27,33 @@ class _ViewUrlState extends State<ViewUrl> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff0E1C36),
+     
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: 10,
           children: [
             Text(
               widget.folder?? "All saved",
-              style: GoogleFonts.amarante(
-                fontWeight: FontWeight.w500,
-                fontSize: 26,
-              ),
+              style: kAppBarStyle
             ),
 
-            Image.asset(
+            ClipRRect(
+              borderRadius: BorderRadiusGeometry.circular(10),
+              child: Image.asset(
               'assets/images/${widget.platform.toLowerCase()}.png',
               height: 24,
-              color: Colors.white,
+              
             ),
+            )
           ],
         ),
         foregroundColor: Colors.white,
       ),
-      body: Consumer<BookmarkProvider>(
+      body: Stack(
+        
+        children: [
+        Image.asset('assets/images/image.png',width: double.infinity,height: double.infinity,fit: BoxFit.fitHeight,),
+          Consumer<BookmarkProvider>(
         builder: (context, bookMark, child) {
           return ListView(
             children: [
@@ -67,6 +72,8 @@ class _ViewUrlState extends State<ViewUrl> {
           );
         },
       ),
+        ],
+      )
     );
   }
 }

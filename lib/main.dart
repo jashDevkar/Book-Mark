@@ -1,5 +1,6 @@
 import 'package:bookmark/Providers/bookmark_provider.dart';
 import 'package:bookmark/constants/my_theme.dart';
+import 'package:bookmark/pages/add_book_mark.dart';
 import 'package:bookmark/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +30,9 @@ class MyApp extends StatelessWidget {
             
         ),
       ],
-      child: MaterialApp(theme: MyTheme.mytheme, home: HomePage()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: MyTheme.mytheme, home: HomePage()),
     );
   }
 }
