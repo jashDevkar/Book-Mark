@@ -7,7 +7,6 @@ import 'package:bookmark/models/folder_model.dart';
 
 import 'package:bookmark/widgets/show_bottom_modal.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class SelectFolder extends StatefulWidget {

@@ -73,7 +73,7 @@ class SocialMediaIcons extends StatelessWidget {
                   
                   Row(
                     // mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 10,
+                    spacing: 4,
                     children: [
                       Text(
                         '${Provider.of<BookmarkProvider>(context).getPlatformFolderCount(platformName: platformName.toLowerCase())} Folders',
@@ -81,6 +81,10 @@ class SocialMediaIcons extends StatelessWidget {
                           fontWeight: FontWeight.w400,fontSize: 12
                         ),
                       ),
+                      Text('•',style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18
+                      ),),
                       Text(
                         '${Provider.of<BookmarkProvider>(context).getUrlPlatformUrlCount(platformName: platformName.toLowerCase())} Urls',
                          style: GoogleFonts.roboto(

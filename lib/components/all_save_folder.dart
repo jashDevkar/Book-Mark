@@ -1,7 +1,6 @@
 import 'package:bookmark/colors.dart';
 import 'package:bookmark/pages/view_url.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class AllSaveFolder extends StatelessWidget {

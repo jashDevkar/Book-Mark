@@ -6,7 +6,7 @@ import 'package:bookmark/constants/core.dart';
 import 'package:bookmark/pages/add_book_mark.dart';
 import 'package:bookmark/pages/view_all_folders.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:listen_sharing_intent/listen_sharing_intent.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage>
           ImageFiltered(
             imageFilter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
             child: Image.asset(
-              'assets/images/bg.webp',
+              'assets/images/image.png',
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.fitHeight,

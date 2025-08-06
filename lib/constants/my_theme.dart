@@ -13,7 +13,7 @@ class MyTheme {
     ),
     
     appBarTheme: AppBarTheme(
-      color: Colors.blue.shade700,
+      color: Colors.blue.shade800,
       foregroundColor: Colors.white,
       titleTextStyle: GoogleFonts.roboto(
         fontWeight: FontWeight.bold,

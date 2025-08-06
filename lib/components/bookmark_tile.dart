@@ -18,6 +18,7 @@ class BookmarkTile extends StatelessWidget {
         motion: BehindMotion(),
         children: [
           SlidableAction(
+            backgroundColor: Colors.transparent,
             foregroundColor: Colors.blueAccent,
             onPressed: (context) {
               Navigator.push(context, PageTransition(
