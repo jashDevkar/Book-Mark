@@ -50,6 +50,8 @@ class _SelectFolderState extends State<SelectFolder> {
             },
             child: Text(
               selectedIndex == -1 ? 'Add folder':'Select',
+              style: kSubAppApp
+              ,
               
             ),
           ),
@@ -64,15 +66,27 @@ class _SelectFolderState extends State<SelectFolder> {
               style: kAppBarStyle,
               
             ),
-            Image.asset(
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child:Image.asset(
               'assets/images/${widget.platformName.toLowerCase()}.png',
               width: 24,
-              color: Colors.white,
+              
             ),
+            )
           ],
         ),
       ),
-      body: Consumer<BookmarkProvider>(
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/images/image.png',
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.fitHeight,
+          ),
+
+          Consumer<BookmarkProvider>(
         builder: (context, bookMark, child) {
           return GridView.builder(
             padding: EdgeInsets.only(top: 20, left: 10, right: 10),
@@ -112,6 +126,8 @@ class _SelectFolderState extends State<SelectFolder> {
           );
         },
       ),
+        ],
+      )
     );
   }
 }

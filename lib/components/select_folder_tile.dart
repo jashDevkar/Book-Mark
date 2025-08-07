@@ -44,7 +44,7 @@ class SelectFolderTile extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10),
-          color: Color.fromARGB(255, 248, 246, 253),
+          color: Colors.white,
           boxShadow: [
             BoxShadow(
               color: Colors.grey,
@@ -55,59 +55,52 @@ class SelectFolderTile extends StatelessWidget {
           ],
           border: Border.all(color: Color(0xff0E1C36), width: 2),
         ),
-        child: Column(
+        child: Stack(
+          
           children: [
-            Stack(
-              // fit: StackFit.passthrough,
+            Column(
               children: [
-                Column(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            showDeleteBottomModal(context, folderModel);
-                          },
-                          child: Icon(Icons.more_vert_rounded),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      spacing: 10,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
-                        Text(
-                          folderName,
-                          style: GoogleFonts.roboto(
-                           
-                            fontSize: 20
-                          ),
-                        ),
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        showDeleteBottomModal(context, folderModel);
+                      },
+                      child: Icon(Icons.more_vert_rounded),
                     ),
                   ],
                 ),
-
-                if (isSelected)
-                  Column(
-                    
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: 130,
-                        color: const Color.fromARGB(144, 0, 0, 0),
-                        child: Center(
-                          child:Icon(Icons.check,size: 80,color: Colors.white,)
-                        ),
-                      ),
-                    ],
-                  ),
+                Column(
+                  spacing: 10,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
+                    Text(
+                      folderName,
+                      style: GoogleFonts.roboto(fontSize: 20),
+                    ),
+                  ],
+                ),
               ],
             ),
+        
+            if (isSelected)
+              Container(
+                width: double.infinity,
+                height:double.infinity,
+                decoration: BoxDecoration(
+                color: const Color.fromARGB(144, 0, 0, 0),
+                  borderRadius: BorderRadius.circular(4)
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.check,
+                    size: 85,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
           ],
         ),
       ),
