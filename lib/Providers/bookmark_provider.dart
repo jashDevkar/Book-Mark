@@ -8,7 +8,7 @@ class BookmarkProvider extends ChangeNotifier {
   final Box _myBox = Hive.box('bookmark');
 
 
-  final List<PlatformModel> _allPlatforms = [];
+ 
 
   final List<FolderModel> _allFolders = [];
 
@@ -34,7 +34,7 @@ class BookmarkProvider extends ChangeNotifier {
     ];
 
 
-  List<PlatformModel> get allPlatforms => _allPlatforms;
+
   List<FolderModel> get allFolders => _allFolders;
 
   List<PlatformModel> get allPlatformList => _platformList;

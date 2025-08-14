@@ -1,9 +1,10 @@
 import 'package:bookmark/Preview/custompreview_builder.dart';
-
 import 'package:bookmark/Providers/bookmark_provider.dart';
+import 'package:bookmark/constants/constants.dart';
 import 'package:bookmark/constants/core.dart';
 import 'package:bookmark/models/url_model.dart';
 import 'package:bookmark/pages/select_folder.dart';
+import 'package:bookmark/pages/select_platform.dart';
 
 import 'package:flutter/material.dart';
 
@@ -35,20 +36,21 @@ class _AddBookmarkState extends State<AddBookmark> {
 
   bool showPreview = false;
 
-  String? platform ;
+  late String platform;
 
   @override
   void initState() {
     super.initState();
     if (widget.url != null) {
       _urlController.text = widget.url!;
-      platform = platform ?? Core().getPlatformName(widget.url!);
-    }
-    if (widget.urlModel != null) {
+      platform = Core().getPlatformName(widget.url!);
+    } else if (widget.urlModel != null) {
       platform = widget.urlModel!.platform;
       _urlController.text = widget.urlModel!.url;
       _noteController.text = widget.urlModel!.note ?? "";
       finalFolderName = widget.urlModel!.folderName ?? "All saved";
+    } else {
+      platform = 'random';
     }
   }
 
@@ -56,6 +58,15 @@ class _AddBookmarkState extends State<AddBookmark> {
     setState(() {
       showPreview = !showPreview;
     });
+  }
+
+  void onTap(name) {
+    if (platform != name) {
+      setState(() {
+        platform = name;
+        finalFolderName = null;
+      });
+    }
   }
 
   String? folderName;
@@ -113,7 +124,10 @@ class _AddBookmarkState extends State<AddBookmark> {
                       children: [
                         ///show this text only when user has not tapped on show preview icon
                         if (!showPreview)
-                          Text('Show preview', style: GoogleFonts.amarante()),
+                          Text(
+                            'Show preview',
+                            style: GoogleFonts.blinker(letterSpacing: 1.5),
+                          ),
 
                         ///show this text when user has tapped on show preview icon and show preview is enabled
                         if (showPreview)
@@ -148,15 +162,47 @@ class _AddBookmarkState extends State<AddBookmark> {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Row(
+                    spacing: 8,
+                    children: [
+                      Text('platform :-'),
+                      TextButton(
+                        style: kButtonDecoration,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.bottomToTop,
+                              child: SelectPlatform(onTap: onTap),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          spacing: 4.0,
+                          children: [
+                            Text(platform),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: Image.asset(
+                                'assets/images/$platform.png',
+                                height: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
                   GestureDetector(
                     onTap: () async {
                       folderName = await Navigator.push(
                         context,
                         PageTransition(
                           type: PageTransitionType.bottomToTop,
-                          child: SelectFolder(platformName: platform!),
+                          child: SelectFolder(platformName: platform),
                         ),
                       );
 
@@ -225,9 +271,7 @@ class _AddBookmarkState extends State<AddBookmark> {
                       listen: false,
                     ).saveUrl(
                       url: _urlController.text,
-                      platformName:
-                          platform ??
-                          Core().getPlatformName(_urlController.text),
+                      platformName: platform,
                       note: _noteController.text,
                       folder: finalFolderName,
                     );

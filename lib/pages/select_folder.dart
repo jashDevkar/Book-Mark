@@ -1,4 +1,3 @@
-
 import 'package:bookmark/Providers/bookmark_provider.dart';
 import 'package:bookmark/colors.dart';
 
@@ -41,18 +40,15 @@ class _SelectFolderState extends State<SelectFolder> {
         actions: [
           TextButton(
             onPressed: () {
-              if(selectedIndex == -1 ){
+              if (selectedIndex == -1) {
                 showBottomModal(context, _folderName, widget.platformName);
-              }
-              else{
-                Navigator.pop(context,folderName);
+              } else {
+                Navigator.pop(context, folderName);
               }
             },
             child: Text(
-              selectedIndex == -1 ? 'Add folder':'Select',
-              style: kSubAppApp
-              ,
-              
+              selectedIndex == -1 ? 'Add folder' : 'Select',
+              style: kSubAppApp,
             ),
           ),
         ],
@@ -61,19 +57,14 @@ class _SelectFolderState extends State<SelectFolder> {
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: 10,
           children: [
-            Text(
-              'Folders',
-              style: kAppBarStyle,
-              
-            ),
+            Text('Folders', style: kAppBarStyle),
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child:Image.asset(
-              'assets/images/${widget.platformName.toLowerCase()}.png',
-              width: 24,
-              
+              child: Image.asset(
+                'assets/images/${widget.platformName.toLowerCase()}.png',
+                width: 24,
+              ),
             ),
-            )
           ],
         ),
       ),
@@ -87,47 +78,44 @@ class _SelectFolderState extends State<SelectFolder> {
           ),
 
           Consumer<BookmarkProvider>(
-        builder: (context, bookMark, child) {
-          return GridView.builder(
-            padding: EdgeInsets.only(top: 20, left: 10, right: 10),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisSpacing: 15,
-              crossAxisCount: 2,
-            ),
-            itemCount: bookMark
-                .getSpecificFolder(platformName: widget.platformName)
-                .length,
-            itemBuilder: (context, index) {
-              final List<FolderModel> folderModel = bookMark.getSpecificFolder(
-                platformName: widget.platformName,
-              );
-              final folder = folderModel[index];
-              return SelectFolderTile(
-                folderName: folder.name,
-                folderModel: folder,
-                platformName: widget.platformName,
-                index: index,
-                isSelected: selectedIndex == index,
-                onTap: (selectIndex) {
-                  setState(() {
-                    if (selectIndex == selectedIndex) {
-                      selectedIndex = -1;
-                      folderName = null;
-                    } else {
-                      selectedIndex = selectIndex;
-                      folderName = folderModel[selectIndex].name;
-                    }
-
-                    
-                  });
+            builder: (context, bookMark, child) {
+              return GridView.builder(
+                padding: EdgeInsets.only(top: 20, left: 10, right: 10),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisSpacing: 15,
+                  crossAxisCount: 2,
+                ),
+                itemCount: bookMark
+                    .getSpecificFolder(platformName: widget.platformName)
+                    .length,
+                itemBuilder: (context, index) {
+                  final List<FolderModel> folderModel = bookMark
+                      .getSpecificFolder(platformName: widget.platformName);
+                  final folder = folderModel[index];
+                  return SelectFolderTile(
+                    folderName: folder.name,
+                    folderModel: folder,
+                    platformName: widget.platformName,
+                    index: index,
+                    isSelected: selectedIndex == index,
+                    onTap: (selectIndex) {
+                      setState(() {
+                        if (selectIndex == selectedIndex) {
+                          selectedIndex = -1;
+                          folderName = null;
+                        } else {
+                          selectedIndex = selectIndex;
+                          folderName = folderModel[selectIndex].name;
+                        }
+                      });
+                    },
+                  );
                 },
               );
             },
-          );
-        },
-      ),
+          ),
         ],
-      )
+      ),
     );
   }
 }

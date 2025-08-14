@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:bookmark/Providers/bookmark_provider.dart';
 import 'package:bookmark/components/social_media_icons.dart';
@@ -59,8 +58,8 @@ class _HomePageState extends State<HomePage>
     );
 
     animations = List.generate(4, (index) {
-      return Tween<Offset>(begin: Offset(-2, 0), end: Offset.zero).animate(
-        CurvedAnimation(parent: controller, curve: Interval(index * 0.25, 1)),
+      return Tween<Offset>(begin: Offset(-3, 0), end: Offset.zero).animate(
+        CurvedAnimation(parent: controller, curve: Interval(index * 0.15, 1,curve: Curves.easeInOutExpo),),
       );
     });
 
@@ -70,22 +69,25 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: AddBookmark()));
+          }, icon: Icon(Icons.add))
+        ],
         title: Row(
           spacing: 8,
-          children: [Text('Book-mark'), Icon(Icons.bookmark_add_outlined)],
+          children: [Text('Scroll Vault'), Icon(Icons.storage_rounded)],
         ),
       ),
       body: Stack(
         children: [
-          ImageFiltered(
-            imageFilter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
-            child: Image.asset(
-              'assets/images/image.png',
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.fitHeight,
-            ),
+          Image.asset(
+            'assets/images/image.png',
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.fitHeight,
           ),
 
           Padding(

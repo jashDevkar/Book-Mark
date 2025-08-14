@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="bookmark"
+        android:label="Scroll Vault"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -17,6 +17,17 @@
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
 
+
+
+            <intent-filter>
+               <action android:name="android.intent.action.VIEW" />
+               <category android:name="android.intent.category.DEFAULT" />
+               <category android:name="android.intent.category.BROWSABLE" />
+               <data
+                   android:scheme="https"
+                   android:host="example.com"
+                   android:pathPrefix="/invite"/>
+            </intent-filter>
 
 
             <intent-filter>

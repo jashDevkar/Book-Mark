@@ -1,4 +1,5 @@
 import 'package:bookmark/Providers/bookmark_provider.dart';
+import 'package:bookmark/constants/constants.dart';
 import 'package:bookmark/models/folder_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +32,7 @@ void showBottomModal(
                 decoration: InputDecoration(hintText: 'Enter your folder name'),
               ),
               TextButton(
+                style: kButtonDecoration,
                 onPressed: () {
                   if (controller.text.isNotEmpty) {
                     Provider.of<BookmarkProvider>(

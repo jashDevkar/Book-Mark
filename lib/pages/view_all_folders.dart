@@ -70,6 +70,7 @@ class _ViewAllFoldersState extends State<ViewAllFolders> {
           Consumer<BookmarkProvider>(
             builder: (context, bookMark, child) {
               return GridView(
+                
                 padding: EdgeInsets.only(top: 20, left: 10, right: 10),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 15,
