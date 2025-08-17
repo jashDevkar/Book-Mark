@@ -53,7 +53,7 @@ class BookmarkTile extends StatelessWidget {
         children: [
           SlidableAction(
             backgroundColor: Colors.transparent,
-            foregroundColor: Colors.blueAccent,
+            foregroundColor: Colors.black,
             onPressed: (context) {
               Navigator.push(
                 context,
@@ -76,6 +76,7 @@ class BookmarkTile extends StatelessWidget {
             },
             icon: Icons.delete,
             foregroundColor: Colors.red,
+            backgroundColor: Colors.transparent,
             spacing: 10,
           ),
         ],
@@ -108,7 +109,9 @@ class BookmarkTile extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Row(
-                      children: [Text('Note:- '), Text(item.note ?? "")],
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 8,
+                      children: [Text('Note:-'), Flexible(child: Text(item.note ?? ""))],
                     ),
                   ),
                   GestureDetector(

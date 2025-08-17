@@ -44,7 +44,7 @@ class AllSaveFolder extends StatelessWidget {
             Text(
               'All Saved',
               style: kFoldersTextStyle
-            ),
+            )
           ],
         ),
       ),

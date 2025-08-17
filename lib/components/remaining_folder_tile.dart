@@ -62,17 +62,20 @@ class RemainingFolderTile extends StatelessWidget {
                 ),
               ],
             ),
-            Column(
-              spacing: 10,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
-                Text(
-                  folderName,
-                  style:kFoldersTextStyle
-                ),
-              ],
-            ),
+            Expanded(
+              child: Column(
+                spacing: 10,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
+                  Text(
+                    folderName,
+                    style:kFoldersTextStyle,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

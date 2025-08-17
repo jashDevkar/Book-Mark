@@ -1,8 +1,8 @@
+import 'package:bookmark/colors.dart';
 import 'package:bookmark/models/folder_model.dart';
 import 'package:bookmark/pages/view_url.dart';
 import 'package:bookmark/widgets/show_bottom_modal.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SelectFolderTile extends StatelessWidget {
@@ -56,7 +56,6 @@ class SelectFolderTile extends StatelessWidget {
           border: Border.all(color: Color(0xff0E1C36), width: 2),
         ),
         child: Stack(
-          
           children: [
             Column(
               children: [
@@ -71,34 +70,28 @@ class SelectFolderTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                Column(
-                  spacing: 10,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
-                    Text(
-                      folderName,
-                      style: GoogleFonts.roboto(fontSize: 20),
-                    ),
-                  ],
+                Flexible(
+                  child: Column(
+                    spacing: 10,
+                    children: [
+                      Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
+                      Text(folderName, style: kFoldersTextStyle,textAlign: TextAlign.center,)
+                    ],
+                  ),
                 ),
               ],
             ),
-        
+
             if (isSelected)
               Container(
                 width: double.infinity,
-                height:double.infinity,
+                height: double.infinity,
                 decoration: BoxDecoration(
-                color: const Color.fromARGB(144, 0, 0, 0),
-                  borderRadius: BorderRadius.circular(4)
+                  color: const Color.fromARGB(144, 0, 0, 0),
+                  borderRadius: BorderRadius.circular(4),
                 ),
                 child: Center(
-                  child: Icon(
-                    Icons.check,
-                    size: 85,
-                    color: Colors.white,
-                  ),
+                  child: Icon(Icons.check, size: 85, color: Colors.white),
                 ),
               ),
           ],

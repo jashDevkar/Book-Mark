@@ -28,6 +28,7 @@ void showBottomModal(
             children: [
               Text('Add folder'),
               TextField(
+                maxLength: 20,
                 controller: controller,
                 decoration: InputDecoration(hintText: 'Enter your folder name'),
               ),

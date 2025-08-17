@@ -23,4 +23,5 @@ final kFoldersTextStyle = GoogleFonts.roboto(
   letterSpacing: 1.2,
   fontSize: 18,
   fontWeight: FontWeight.w500,
+  
 );
