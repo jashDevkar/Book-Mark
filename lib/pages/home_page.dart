@@ -1,9 +1,10 @@
-
 import 'package:bookmark/Providers/bookmark_provider.dart';
-import 'package:bookmark/components/social_media_icons.dart';
+import 'package:bookmark/components/all_save_folder.dart';
+import 'package:bookmark/components/remaining_folder_tile.dart';
 import 'package:bookmark/constants/core.dart';
 import 'package:bookmark/pages/add_book_mark.dart';
-import 'package:bookmark/pages/view_all_folders.dart';
+import 'package:bookmark/widgets/show_bottom_modal.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:listen_sharing_intent/listen_sharing_intent.dart';
@@ -19,8 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  late final AnimationController controller;
-  late List<Animation<Offset>> animations;
+ 
 
   final _sharedFile = <SharedMediaFile>[];
 
@@ -52,29 +52,28 @@ class _HomePageState extends State<HomePage>
       }
     });
 
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1500),
-    );
-
-    animations = List.generate(4, (index) {
-      return Tween<Offset>(begin: Offset(-3, 0), end: Offset.zero).animate(
-        CurvedAnimation(parent: controller, curve: Interval(index * 0.15, 1,curve: Curves.easeInOutExpo),),
-      );
-    });
-
-    controller.forward();
+   
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: (){
-            Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: AddBookmark()));
-          }, icon: Icon(Icons.add))
+          IconButton(
+            onPressed: () {
+              // Navigator.push(
+              //   context,
+              //   PageTransition(
+              //     type: PageTransitionType.rightToLeft,
+              //     child: AddBookmark(),
+              //   ),
+              // );
+
+              showFolderOrUrlModel(context);
+            },
+            icon: Icon(Icons.add),
+          ),
         ],
         title: Row(
           spacing: 8,
@@ -92,31 +91,24 @@ class _HomePageState extends State<HomePage>
 
           Padding(
             padding: const EdgeInsets.only(top: 8.0, left: 15.0, right: 15.0),
-            child: ListView.builder(
-              itemCount: Provider.of<BookmarkProvider>(
-                context,
-              ).allPlatformList.length,
-
-              itemBuilder: (context, index) {
-                final item = Provider.of<BookmarkProvider>(
-                  context,
-                ).allPlatformList[index];
-                return SlideTransition(
-                  position: animations[index],
-                  child: SocialMediaIcons(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.rightToLeft,
-                          child: ViewAllFolders(platformName: item.title),
-                        ),
-                      );
-                    },
-                    platformName:
-                        item.title[0].toUpperCase() + item.title.substring(1),
-                    description: item.description,
+            child: Consumer<BookmarkProvider>(
+              builder: (context, bookMarkProvider, child) {
+                return GridView(
+                  // itemCount: Provider.of<BookmarkProvider>(context).allFolders.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisSpacing: 20,
+                    crossAxisCount: 2,
                   ),
+                  children: [
+                    AllSaveFolder(),
+
+                    ...bookMarkProvider.allFolders.asMap().entries.map(
+                      (entry) => RemainingFolderTile(
+                        folderName: entry.value.name,
+                        folderModel: entry.value,
+                      ),
+                    ),
+                  ],
                 );
               },
             ),

@@ -37,6 +37,8 @@ class BookmarkProvider extends ChangeNotifier {
 
   List<FolderModel> get allFolders => _allFolders;
 
+  List<UrlModel> get allUrls => _allUrls;
+
   List<PlatformModel> get allPlatformList => _platformList;
 
   void saveFoldersInLocalStorage() {
@@ -44,6 +46,8 @@ class BookmarkProvider extends ChangeNotifier {
     List<String> jsonList = _allFolders.map((item) => item.toJson()).toList();
     _myBox.put('folders', jsonList);
   }
+
+
 
 
 
@@ -70,11 +74,11 @@ class BookmarkProvider extends ChangeNotifier {
 
   List<UrlModel> getUrlOfFolder({
     required String folderName,
-    required String platformName,
+   
   }) {
     return _allUrls
         .where(
-          (url) => url.platform == platformName && url.folderName == folderName,
+          (url) =>  url.folderName == folderName,
         )
         .toList();
   }
@@ -144,18 +148,14 @@ class BookmarkProvider extends ChangeNotifier {
     }
   }
 
-  List<FolderModel> getSpecificFolder({required String platformName}) {
-    return _allFolders
-        .where((item) => item.platformName == platformName)
-        .toList();
-  }
+  
 
 
   /// ===== save folder in specific platform =====
-  void saveFolder({required String name, required String platformName}) {
+  void saveFolder({required String name}) {
     FolderModel folderModel = FolderModel(
       name: name,
-      platformName: platformName,
+     
     );
     _allFolders.add(folderModel);
     saveFoldersInLocalStorage();
@@ -164,18 +164,7 @@ class BookmarkProvider extends ChangeNotifier {
 
 
 
-  /// ===== get folder count of specific folder =====
-  int getPlatformFolderCount({required String platformName}){  
-    return _allFolders.where((item)=>item.platformName == platformName).toList().length;
-  }
-
-
-  /// ===== get url count in specific platform ======
-  int getUrlPlatformUrlCount({required String platformName}){
-    return _allUrls.where((item)=>item.platform == platformName).toList().length;
-  }
-
-
+ 
   
 
  

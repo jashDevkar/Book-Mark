@@ -5,20 +5,18 @@ import 'dart:convert';
 
 class FolderModel {
   String name;
-  String platformName;
-  FolderModel({required this.name, required this.platformName});
+  FolderModel({required this.name,});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name,
-      'platformName': platformName,
     };
   }
 
   factory FolderModel.fromMap(Map<String, dynamic> map) {
     return FolderModel(
       name: map['name'] as String,
-      platformName: map['platformName'] as String,
+      
     );
   }
 

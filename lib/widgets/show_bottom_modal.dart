@@ -1,15 +1,14 @@
 import 'package:bookmark/Providers/bookmark_provider.dart';
 import 'package:bookmark/constants/constants.dart';
 import 'package:bookmark/models/folder_model.dart';
+import 'package:bookmark/pages/add_book_mark.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-void showBottomModal(
-  BuildContext context,
-  TextEditingController controller,
-  String platformName,
-) {
+void showBottomModal(BuildContext context) {
+  TextEditingController controller = TextEditingController();
   showModalBottomSheet(
     // constraints: BoxConstraints.expand(),
     isScrollControlled: true,
@@ -39,10 +38,7 @@ void showBottomModal(
                     Provider.of<BookmarkProvider>(
                       context,
                       listen: false,
-                    ).saveFolder(
-                      name: controller.text,
-                      platformName: platformName,
-                    );
+                    ).saveFolder(name: controller.text);
                   }
                   controller.clear();
                   Navigator.pop(context);
@@ -117,6 +113,89 @@ void showDeleteBottomModal(BuildContext context, FolderModel folder) {
             );
           },
           child: Text('Delete folder'),
+        ),
+      );
+    },
+  );
+}
+
+void showFolderOrUrlModel(context) {
+  showModalBottomSheet(
+    context: context,
+    builder: (context) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextButton.icon(
+              icon: Icon(Icons.folder),
+              style: TextButton.styleFrom(
+                elevation: 4.0,
+
+                // backgroundColor: Colors.red,
+                foregroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(10),
+                ),
+              ),
+
+              onPressed: () {
+                Navigator.pop(context);
+                showBottomModal(context);
+              },
+              label: Text(
+                'Add folder',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.5,
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                spacing: 10,
+                children: [
+                  Expanded(child: Divider()),
+                  Text('OR'),
+                  Expanded(child: Divider()),
+                ],
+              ),
+            ),
+
+            TextButton.icon(
+              style: TextButton.styleFrom(
+                elevation: 4.0,
+                // backgroundColor: Colors.red,
+                foregroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(10),
+                ),
+              ),
+
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    child: AddBookmark(),
+                  ),
+                );
+              },
+              icon: Icon(Icons.link),
+              label: Text(
+                'Add Url',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.5,
+                ),
+              ),
+            ),
+          ],
         ),
       );
     },

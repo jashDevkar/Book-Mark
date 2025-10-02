@@ -24,14 +24,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => BookmarkProvider()
             ..retriveAllFolders()
-            ..retriveUrls()
-            ,
-            
+            ..retriveUrls(),
         ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: MyTheme.mytheme, home: HomePage()),
+        theme: MyTheme.mytheme,
+        home: HomePage(),
+      ),
     );
   }
 }

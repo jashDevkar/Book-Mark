@@ -8,13 +8,13 @@ import 'package:page_transition/page_transition.dart';
 class RemainingFolderTile extends StatelessWidget {
   final String folderName;
   final FolderModel folderModel;
-  final String platformName;
+  
   
   const RemainingFolderTile({
     super.key,
     required this.folderName,
     required this.folderModel,
-    required this.platformName,
+
     
   });
 
@@ -27,7 +27,7 @@ class RemainingFolderTile extends StatelessWidget {
           context,
           PageTransition(
             type: PageTransitionType.rightToLeft,
-            child: ViewUrl(platform: platformName,folder: folderName,),
+            child: ViewUrl(folder: folderName,),
           ),
         );
         
@@ -38,16 +38,9 @@ class RemainingFolderTile extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 2.0,
-              spreadRadius: 0.0,
-              offset: Offset(4.5, 4.0),
-            ),
-          ],
-          border: Border.all(color: Color(0xff0E1C36), width: 2),
+          color:   const Color.fromARGB(197, 255, 255, 255),
+          
+          border: Border.all(color: Color(0xff0E1C36), width: 1),
         ),
         child: Column(
           children: [
@@ -68,11 +61,11 @@ class RemainingFolderTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
-                  Text(
+                  Expanded(child: Text(
                     folderName,
                     style:kFoldersTextStyle,
                     textAlign: TextAlign.center,
-                  ),
+                  ),)
                 ],
               ),
             )

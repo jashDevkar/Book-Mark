@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 class AllSaveFolder extends StatelessWidget {
-  final String platformName;
-  const AllSaveFolder({super.key, required this.platformName});
+ 
+  const AllSaveFolder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class AllSaveFolder extends StatelessWidget {
           context,
           PageTransition(
             type: PageTransitionType.rightToLeft,
-            child: ViewUrl(platform: platformName),
+            child: ViewUrl(),
           ),
         );
       },
@@ -25,16 +25,9 @@ class AllSaveFolder extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 2.0,
-              spreadRadius: 0.0,
-              offset: Offset(4.5, 4.0),
-            ),
-          ],
-          border: Border.all(color: Color(0xff0E1C36), width: 2),
+          color:   const Color.fromARGB(197, 255, 255, 255),
+          
+          border: Border.all(color: Color(0xff0E1C36), width: 1),
         ),
         child: Column(
           spacing: 10,

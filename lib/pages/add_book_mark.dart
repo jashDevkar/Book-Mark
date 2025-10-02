@@ -256,10 +256,8 @@ class _AddBookmarkState extends State<AddBookmark> {
 
                     widget.urlModel!.folderName = finalFolderName;
                     widget.urlModel!.note = _noteController.text;
-                    widget.urlModel!.platform = platform; 
+                    widget.urlModel!.platform = platform;
 
-                    
-                  
                     Provider.of<BookmarkProvider>(
                       context,
                       listen: false,

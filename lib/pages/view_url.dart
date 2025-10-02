@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ViewUrl extends StatefulWidget {
-  final String platform;
+ 
   final String? folder;
-  const ViewUrl({super.key, required this.platform, this.folder});
+  const ViewUrl({super.key, this.folder});
 
   @override
   State<ViewUrl> createState() => _ViewUrlState();
@@ -29,13 +29,13 @@ class _ViewUrlState extends State<ViewUrl> {
           children: [
             Text(widget.folder ?? "All saved", style: kAppBarStyle),
 
-            ClipRRect(
-              borderRadius: BorderRadiusGeometry.circular(10),
-              child: Image.asset(
-                'assets/images/${widget.platform.toLowerCase()}.png',
-                height: 24,
-              ),
-            ),
+            // ClipRRect(
+            //   borderRadius: BorderRadiusGeometry.circular(10),
+            //   child: Image.asset(
+            //     'assets/images/${widget.platform.toLowerCase()}.png',
+            //     height: 24,
+            //   ),
+            // ),
           ],
         ),
         foregroundColor: Colors.white,
@@ -51,10 +51,10 @@ class _ViewUrlState extends State<ViewUrl> {
           Consumer<BookmarkProvider>(
             builder: (context, bookMark, child) {
               final List items = widget.folder == null
-                  ? bookMark.getAllUrlOfPlatforms(platformName: widget.platform)
+                  ? bookMark.allUrls
                   : bookMark.getUrlOfFolder(
                       folderName: widget.folder!,
-                      platformName: widget.platform,
+                     
                     );
 
               return ListView.builder(

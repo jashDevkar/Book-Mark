@@ -33,7 +33,7 @@ class SelectFolderTile extends StatelessWidget {
             context,
             PageTransition(
               type: PageTransitionType.rightToLeft,
-              child: ViewUrl(platform: platformName),
+              child: ViewUrl(),
             ),
           );
         }

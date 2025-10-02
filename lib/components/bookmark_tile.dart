@@ -111,14 +111,29 @@ class BookmarkTile extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       spacing: 8,
-                      children: [Text('Note:-'), Flexible(child: Text(item.note ?? ""))],
+                      children: [
+                        Text('Note:-'),
+                        Flexible(child: Text(item.note ?? "")),
+                      ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      _onShareTextAsXFile(context);
-                    },
-                    child: Icon(Icons.share, size: 16),
+                  Row(
+                    spacing: 10,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadiusGeometry.circular(10),
+                        child: Image.asset(
+                          "assets/images/${item.platform}.png",
+                          width: 24,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _onShareTextAsXFile(context);
+                        },
+                        child: Icon(Icons.share, size: 16),
+                      ),
+                    ],
                   ),
                 ],
               ),

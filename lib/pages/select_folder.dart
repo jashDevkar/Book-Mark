@@ -41,7 +41,7 @@ class _SelectFolderState extends State<SelectFolder> {
           TextButton(
             onPressed: () {
               if (selectedIndex == -1) {
-                showBottomModal(context, _folderName, widget.platformName);
+                showBottomModal(context,);
               } else {
                 Navigator.pop(context, folderName);
               }
@@ -85,12 +85,9 @@ class _SelectFolderState extends State<SelectFolder> {
                   crossAxisSpacing: 15,
                   crossAxisCount: 2,
                 ),
-                itemCount: bookMark
-                    .getSpecificFolder(platformName: widget.platformName)
-                    .length,
+                itemCount: bookMark.allFolders.length,
                 itemBuilder: (context, index) {
-                  final List<FolderModel> folderModel = bookMark
-                      .getSpecificFolder(platformName: widget.platformName);
+                  final List<FolderModel> folderModel = bookMark.allFolders;
                   final folder = folderModel[index];
                   return SelectFolderTile(
                     folderName: folder.name,
