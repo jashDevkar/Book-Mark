@@ -1,4 +1,5 @@
 import 'package:bookmark/colors.dart';
+import 'package:bookmark/constants/constants.dart';
 import 'package:bookmark/models/folder_model.dart';
 import 'package:bookmark/pages/view_url.dart';
 import 'package:bookmark/widgets/show_bottom_modal.dart';
@@ -35,13 +36,7 @@ class RemainingFolderTile extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         margin: EdgeInsets.only(bottom: 20),
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(10),
-          color:   const Color.fromARGB(197, 255, 255, 255),
-          
-          border: Border.all(color: Color(0xff0E1C36), width: 1),
-        ),
+        decoration: kBoxDecoration,
         child: Column(
           children: [
             Row(

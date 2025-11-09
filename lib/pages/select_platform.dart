@@ -1,4 +1,5 @@
 import 'package:bookmark/Providers/bookmark_provider.dart';
+import 'package:bookmark/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -37,20 +38,7 @@ class SelectPlatform extends StatelessWidget {
                         horizontal: 8,
                       ),
                       margin: EdgeInsets.only(bottom: 20),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 2.0,
-                            spreadRadius: 0.0,
-                            offset: Offset(4.5, 4.0),
-                          ),
-                        ],
-                        border: Border.all(color: Color(0xff0E1C36), width: 2),
-                      ),
+                      decoration: kBoxDecoration,
 
                       child: GestureDetector(
                         onTap: () {

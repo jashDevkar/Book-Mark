@@ -44,16 +44,9 @@ class SelectFolderTile extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 2.0,
-              spreadRadius: 0.0,
-              offset: Offset(4.5, 4.0),
-            ),
-          ],
-          border: Border.all(color: Color(0xff0E1C36), width: 2),
+          color: const Color.fromARGB(197, 255, 255, 255),
+
+          border: Border.all(color: Color(0xff0E1C36), width: 1),
         ),
         child: Stack(
           children: [
@@ -75,7 +68,11 @@ class SelectFolderTile extends StatelessWidget {
                     spacing: 10,
                     children: [
                       Icon(Icons.folder, size: 40, color: Color(0xff0E1C36)),
-                      Text(folderName, style: kFoldersTextStyle,textAlign: TextAlign.center,)
+                      Text(
+                        folderName,
+                        style: kFoldersTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),

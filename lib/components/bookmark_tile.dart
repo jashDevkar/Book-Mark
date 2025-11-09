@@ -1,4 +1,5 @@
 import 'package:bookmark/Preview/custompreview_builder.dart';
+import 'package:bookmark/constants/constants.dart';
 import 'package:bookmark/constants/core.dart';
 import 'package:bookmark/models/url_model.dart';
 import 'package:bookmark/pages/add_book_mark.dart';
@@ -8,10 +9,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:share_plus/share_plus.dart';
 
-class BookmarkTile extends StatelessWidget {
+class BookmarkTile extends StatefulWidget {
   final UrlModel item;
   const BookmarkTile({super.key, required this.item});
 
+  @override
+  State<BookmarkTile> createState() => _BookmarkTileState();
+}
+
+class _BookmarkTileState extends State<BookmarkTile>
+    with AutomaticKeepAliveClientMixin {
   void _onShareTextAsXFile(BuildContext context) async {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
 
@@ -21,7 +28,7 @@ class BookmarkTile extends StatelessWidget {
           subject: 'Url that i saved in my "Scroll Vault" app',
           title: 'Url that i saved in my "Scroll Vault" app',
           text:
-              '''Here's the url that i saved in my "Scroll Vault" app\n\nDon't just doom scroll, utilize that knowledge\n\n${item.url}''',
+              '''Here's the url that i saved in my "Scroll Vault" app\n\nDon't just doom scroll, utilize that knowledge\n\n${widget.item.url}''',
         ),
       );
 
@@ -46,7 +53,11 @@ class BookmarkTile extends StatelessWidget {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Slidable(
       startActionPane: ActionPane(
         motion: BehindMotion(),
@@ -59,7 +70,7 @@ class BookmarkTile extends StatelessWidget {
                 context,
                 PageTransition(
                   type: PageTransitionType.rightToLeft,
-                  child: AddBookmark(urlModel: item),
+                  child: AddBookmark(urlModel: widget.item),
                 ),
               );
             },
@@ -72,7 +83,7 @@ class BookmarkTile extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) {
-              Core().showAlert(context, item);
+              Core().showAlert(context, widget.item);
             },
             icon: Icons.delete,
             foregroundColor: Colors.red,
@@ -84,24 +95,11 @@ class BookmarkTile extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
         padding: EdgeInsets.only(bottom: 10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Color(0xff0E1C36)),
-          borderRadius: BorderRadius.circular(10),
-
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 2.0,
-              spreadRadius: 0.0,
-              offset: Offset(4.5, 4.0),
-            ),
-          ],
-        ),
+        decoration: kBoxDecoration,
         child: Column(
           spacing: 10,
           children: [
-            CustomPreviewBuilder(url: item.url),
+            CustomPreviewBuilder(url: widget.item.url),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 12.0),
               child: Row(
@@ -113,7 +111,7 @@ class BookmarkTile extends StatelessWidget {
                       spacing: 8,
                       children: [
                         Text('Note:-'),
-                        Flexible(child: Text(item.note ?? "")),
+                        Flexible(child: Text(widget.item.note ?? "")),
                       ],
                     ),
                   ),
@@ -123,7 +121,7 @@ class BookmarkTile extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadiusGeometry.circular(10),
                         child: Image.asset(
-                          "assets/images/${item.platform}.png",
+                          "assets/images/${widget.item.platform}.png",
                           width: 24,
                         ),
                       ),
