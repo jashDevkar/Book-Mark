@@ -1,6 +1,7 @@
 import 'package:bookmark/Providers/bookmark_provider.dart';
 import 'package:bookmark/colors.dart';
 import 'package:bookmark/components/bookmark_tile.dart';
+import 'package:bookmark/models/url_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,19 +36,20 @@ class _ViewUrlState extends State<ViewUrl> with AutomaticKeepAliveClientMixin {
               ),
             ),
           ),
-          Selector<BookmarkProvider, List>(
-            selector: (context, provider) {
-              return widget.folder == null
+          Consumer<BookmarkProvider>(
+            
+            builder: (context, provider, child) {
+
+              final List<UrlModel>folders = widget.folder == null
                   ? provider.allUrls
                   : provider.getUrlOfFolder(folderName: widget.folder!);
-            },
-            builder: (context, items, child) {
+
               return ListView.builder(
-                itemCount: items.length,
+                itemCount: folders.length,
                 itemBuilder: (context, index) {
                   return BookmarkTile(
               
-                    item: items[index],
+                    item: folders[index],
                   );
                 },
               );

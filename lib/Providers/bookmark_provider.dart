@@ -164,11 +164,6 @@ class BookmarkProvider extends ChangeNotifier {
 
 
 
- 
-  
-
- 
-
 
   void clearAll(){
     _myBox.clear();

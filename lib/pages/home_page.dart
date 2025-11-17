@@ -82,10 +82,10 @@ class _HomePageState extends State<HomePage>
 
           Padding(
             padding: const EdgeInsets.only(top: 8.0, left: 15.0, right: 15.0),
-            child: Selector<BookmarkProvider, List<FolderModel>>(
-              builder: (context, folders, widget) {
+            child: Consumer<BookmarkProvider>(
+              builder: (context, provide, widget) {
                 return GridView.builder(
-                  itemCount: folders.length + 1,
+                  itemCount: provide.allFolders.length + 1,
 
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage>
                     if (index == 0) {
                       return const AllSaveFolder();
                     } else {
-                      FolderModel folder = folders[index - 1];
+                      FolderModel folder = provide.allFolders[index - 1];
                       return RemainingFolderTile(
                         folderName: folder.name,
                         folderModel: folder,
@@ -104,7 +104,6 @@ class _HomePageState extends State<HomePage>
                   },
                 );
               },
-              selector: (context, provider) => provider.allFolders,
             ),
           ),
         ],
